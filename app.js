@@ -3,19 +3,24 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import {localsMiddleware} from "./middlewares"; //폴더 알파벳 순으로 나열하는건 좋은습관
+import routes from "./routes";
 import userRouter from "./routerts/userRouter";
 import videoRouter from "./routerts/videoRouter";
 import globalRouter from "./routerts/globalRouter";
-import routes from "./routes";
+
 const app = express();
 
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet()); //보안관련
-app.use(morgan("common")); //접속로그
+app.set('view engine', "pug");
+app.use(cookieParser()); //cookie를 전달받아서 사용할 수 있도록 만들어줌 사용자 인증 같은 곳에서 쿠키검사할 떄 사용함
+app.use(bodyParser.json()); //사용자가 웹사이트로 전달하는 정보들을 검사하는 미들웨어
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan("dev")); //접속로그
 
-app.use(routes.home, globalRouter);
+app.use(localsMiddleware);
+
+app.use(routes.home, globalRouter); //app.use("/", (req, res) => res.render("home");)
 app.use(routes.users, userRouter); //router 불러옴 왜 use인지 검색해보장
 app.use(routes.videos, videoRouter);
 
