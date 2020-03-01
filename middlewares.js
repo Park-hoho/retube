@@ -4,5 +4,9 @@ import routes from "./routes";
 export const localsMiddleware = (req, res, next) => {
     res.locals.siteName = "ReTube";
     res.locals.routes = routes;
+    res.locals.user = {
+        isAuthenticated: true,
+        id: 1
+    };
     next(); //마지막에 next(); 꼭 해주자
 };

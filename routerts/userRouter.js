@@ -6,6 +6,6 @@ const userRouter = express.Router(); //여기에 export있으면 오직 하나�
 
 userRouter.get(routes.editProfile, editProfile);
 userRouter.get(routes.changePassword, changePassword);
-userRouter.get(routes.userDetail, userDetail);
+userRouter.get(routes.userDetail(), userDetail);
 
 export default userRouter;  // 파일 전체를 export
