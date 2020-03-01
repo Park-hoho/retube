@@ -21,7 +21,7 @@ app.use(morgan("dev")); //접속로그
 app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter); //app.use("/", (req, res) => res.render("home");)
-app.use(routes.users, userRouter); //router 불러옴 왜 use인지 검색해보장
+app.use(routes.users, userRouter); //아 여기 routes.users가 /users 이여서 userRouter부르려면 /users/~~이렇게
 app.use(routes.videos, videoRouter);
 
 export default app;

@@ -1,4 +1,12 @@
 extends layouts/main.pug
+include mixins/videoBlock
 
 block content
-    p Hello
+    .videos
+        // each ~~ in controller에서 전달한 이름과 같아야함
+        each item in videos
+            +videoBlock({
+                title:item.title,
+                views:item.views,
+                videoFile:item.videoFile
+            })
