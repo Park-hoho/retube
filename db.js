@@ -1,50 +1,16 @@
-export const videos = [
+import mongoose from "mongoose";
+
+mongoose.connect("mongodb://localhost:27017/re-tube", //어디에 Database가 저장되어 있는지 알려주는 코드
     {
-        id:324393,
-        title: 'Video awesome',
-        description: 'This is something I love',
-        views:24,
-        videoFile: "https://archive.org/details/BigBuckBunny_124",
-        creators: {
-            id: 121212,
-            name: "ByungHo",
-            email:"bhpark@las.com"
-        }
-    },
-    {
-        id:56857,
-        title: 'Video super',
-        description: 'This is something I love',
-        views:24,
-        videoFile: "https://archive.org/details/BigBuckBunny_124",
-        creators: {
-            id: 121212,
-            name: "ByungHo",
-            email:"bhpark@las.com"
-        }
-    },
-    {
-        id:5343,
-        title: 'Video Nice',
-        description: 'This is something I love',
-        views:24,
-        videoFile: "https://archive.org/details/BigBuckBunny_124",
-        creators: {
-            id: 121212,
-            name: "ByungHo",
-            email:"bhpark@las.com"
-        }
-    },
-    {
-        id:31203,
-        title: 'Video perfect',
-        description: 'This is something I love',
-        views:24,
-        videoFile: "https://archive.org/details/BigBuckBunny_124",
-        creators: {
-            id: 121212,
-            name: "ByungHo",
-            email:"bhpark@las.com"
-        }
+        useNewUrlParser: true,
+        useFindAndModify: false //Configuration을 사용 안함으로 해
     }
-];
+    );
+
+const db = mongoose.connection;
+
+const handleOpen = () => console.log("✔ Connect to DB");
+const handleError = error => console.log(`✔ Error on DB Connection:${error}`);
+
+db.once("open", handleOpen);
+db.on("error", handleError);
