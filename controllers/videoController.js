@@ -1,6 +1,15 @@
 import routes from "../routes";
-export const home = (req, res) => {
-    res.render("home", { pageTitle: "Home", videos });
+import Video from "../models/Video"; //element를 받는 통로
+
+export const home = async(req, res) => {
+    try{
+        const videos = await Video.find({});
+        res.render("home", { pageTitle: "Home", videos });
+    } catch (error) {
+        console.log(error);
+        res.render("home", { pageTitle: "Home", videos: [] })
+    }
+
 };
 //render 함수의 첫번째 인자는 탬플릿, 두번째 인자는 템플릿에 추가할 정보가 담긴 객체
 export const search = (req, res) => {
