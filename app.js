@@ -13,11 +13,11 @@ const app = express();
 
 app.use(helmet()); //보안관련
 app.set('view engine', "pug");
+app.use("/uploads", express.static("uploads"));
 app.use(cookieParser()); //cookie를 전달받아서 사용할 수 있도록 만들어줌 사용자 인증 같은 곳에서 쿠키검사할 떄 사용함
 app.use(bodyParser.json()); //사용자가 웹사이트로 전달하는 정보들을 검사하는 미들웨어 (body로 정보)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev")); //접속로그
-
 app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter); //app.use("/", (req, res) => res.render("home");)

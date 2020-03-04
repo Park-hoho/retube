@@ -9,7 +9,6 @@ export const home = async(req, res) => {
         console.log(error);
         res.render("home", { pageTitle: "Home", videos: [] })
     }
-
 };
 //render 함수의 첫번째 인자는 탬플릿, 두번째 인자는 템플릿에 추가할 정보가 담긴 객체
 export const search = (req, res) => {
@@ -23,12 +22,18 @@ export const getUpload = (req, res) => {
     res.render("upload", {pageTitle: "Upload"})
 };
 
-export const postUpload = (req, res) => {
+export const postUpload = async(req, res) => {
     const {
-        body: { file, title, description }
-    } = req;
-    //To Do: Upload and save video
-    res.redirect(routes.videoDetail(324393))
+        body: { title, description },
+        file: { path }
+    }= req;
+    const newVideo = await Video.create({
+        fileUrl: path,
+        title,
+        description
+    });
+    console.log(newVideo);
+    res.redirect(routes.videoDetail(newVideo.id))
 };
 
 export const videoDetail = (req, res) => res.render("videoDetail", { pageTitle: "Video Detail" });
