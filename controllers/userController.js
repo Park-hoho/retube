@@ -1,7 +1,7 @@
 import routes from "../routes";
 
 export const getJoin = (req, res) => {
-  res.render("join", {pageTitle: "Join"});
+  res.render("join", { pageTitle: "Join" });
 }; // render 첫번째 인자는 pug 이름
 export const postJoin = (req, res) => {
   const {
@@ -9,7 +9,7 @@ export const postJoin = (req, res) => {
   } = req;
   if(password !== password2) {
     res.status(400);
-    res.render("join", {pageTitle: "Join"});
+    res.render("join", { pageTitle: "Join" });
   } else {
     // To Do: Register User
     // To Do: Log user in
