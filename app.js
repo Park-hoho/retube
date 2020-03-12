@@ -4,6 +4,9 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
+import mongoose from "mongoose";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares"; // 폴더 알파벳 순으로 나열하는건 좋은습관
 import routes from "./routes";
 import userRouter from "./routerts/userRouter";
@@ -13,6 +16,8 @@ import "./passport";
 
 const app = express();
 
+const CokieStore = MongoStore(session);
+
 app.use(helmet()); // 보안관련
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
@@ -21,6 +26,14 @@ app.use(cookieParser()); // cookie를 전달받아서 사용할 수 있도록 �
 app.use(bodyParser.json()); // 사용자가 웹사이트로 전달하는 정보들을 검사하는 미들웨어 (body로 정보)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev")); // 접속로그
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new CokieStore({ mongooseConnection: mongoose.connection }) // 쿠키를 DB에 연결
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
