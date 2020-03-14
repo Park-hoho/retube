@@ -1,6 +1,7 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
 import User from "./models/User";
+import { githubLoginCallback } from "./controllers/userController";
 // strategy는 로그인 하는 방식
 passport.use(User.createStrategy());
 
@@ -8,7 +9,8 @@ passport.use(new GithubStrategy({
     clientID: process.env.GH_ID,
     clientSecret: process.env.GH_SECRET,
     callbackURL: "http://localhost:4000/auth/github/callback"
-  })
+  }),
+  githubLoginCallback
 );
 
 passport.serializeUser(User.serializeUser());
