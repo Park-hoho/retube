@@ -1,6 +1,6 @@
 import passport from "passport";
 import routes from "../routes";
-import User from "../models/User";
+import User from "../models/User"; // oh..
 
 // Join
 
