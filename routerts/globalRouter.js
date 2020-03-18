@@ -7,7 +7,10 @@ import {
   postJoin,
   getLogin,
   postLogin,
-  logout, githubLogin, postGithubLogIn
+  logout,
+  githubLogin,
+  postGithubLogIn,
+  getMe
 } from "../controllers/userController";
 // eslint-disable-next-line import/named
 import { onlyPrivate, onlyPublic } from "../middlewares";
@@ -31,5 +34,7 @@ globalRouter.get(
   passport.authenticate("github", { failureRedirect: "/login" }),
   postGithubLogIn
 );
+
+globalRouter.get(routes.me, getMe);
 
 export default globalRouter;

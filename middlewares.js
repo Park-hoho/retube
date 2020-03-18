@@ -7,7 +7,7 @@ const multerVideo = multer({ dest: "uploads/video/" }); // 중요
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "ReTube";
   res.locals.routes = routes;
-  res.locals.user = req.user || null;
+  res.locals.loggedUser = req.user || null;
   next(); // 마지막에 next(); 꼭 해주자
 };
 
