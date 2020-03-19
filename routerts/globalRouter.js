@@ -10,7 +10,7 @@ import {
   logout,
   githubLogin,
   postGithubLogIn,
-  getMe
+  getMe, facebookLogin, postFacebookLogin
 } from "../controllers/userController";
 // eslint-disable-next-line import/named
 import { onlyPrivate, onlyPublic } from "../middlewares";
@@ -36,5 +36,12 @@ globalRouter.get(
 );
 
 globalRouter.get(routes.me, getMe);
+
+globalRouter.get(routes.facebook, facebookLogin);
+globalRouter.get(
+  routes.facebookCallback,
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  postFacebookLoginLogIn
+);
 
 export default globalRouter;
