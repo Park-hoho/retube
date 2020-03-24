@@ -3,6 +3,7 @@ import routes from "./routes";
 // 전역적으로 사용할 수 있는 변수를 추가하는 방법
 // 템플릿, 뷰, 모든 곳에서 사용가능함
 const multerVideo = multer({ dest: "uploads/video/" }); // 중요
+const multerAvatar = multer({ dest: "uploads/avatars/" });
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "ReTube";
@@ -12,7 +13,7 @@ export const localsMiddleware = (req, res, next) => {
 };
 
 export const onlyPublic = (req, res, next) => {
-  if (req.user){
+  if (req.user) {
     res.redirect(routes.home);
   } else {
     next();
@@ -28,3 +29,4 @@ export const onlyPrivate = (req, res, next) => {
 };
 
 export const uploadVideo = multerVideo.single("videoFile");
+export const uploadAvatar = multerAvatar.single("avatar");

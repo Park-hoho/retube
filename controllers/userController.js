@@ -69,7 +69,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 
 export const facebookLogin = passport.authenticate("facebook")
 
-export const facebookLoginCallback = (
+export const facebookLoginCallback = async (
   accessToken,
   refreshToken,
   profile,
@@ -125,11 +125,27 @@ export const userDetail = async (req, res) => {
   } catch (error) {
     res.redirect(routes.home);
   }
-}
-  
+};
 
-export const editProfile = (req, res) =>
+export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "Edit Profile" });
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file
+  } = req;
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl
+    });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.render("editProfile", { pageTitle: "Edit Profile" });
+  }
+};
 
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });
