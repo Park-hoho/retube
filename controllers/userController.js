@@ -15,7 +15,6 @@ export const postJoin = async (req, res, next) => {
     res.status(400);
     res.render("join", { pageTitle: "Join" });
   } else {
-    // To Do: Register User
     try {
       const user = await User({
         name,
@@ -27,7 +26,6 @@ export const postJoin = async (req, res, next) => {
       console.log(error);
       res.redirect(routes.home);
     }
-    // To Do: Log user in
   }
 };
 
@@ -143,9 +141,26 @@ export const postEditProfile = async (req, res) => {
     });
     res.redirect(routes.me);
   } catch (error) {
-    res.render("editProfile", { pageTitle: "Edit Profile" });
+    res.redirect(routes.editProfile);
   }
 };
 
-export const changePassword = (req, res) =>
+export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 }
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      res.redirect(routes.changePassword);
+      return;
+    }
+    req.user.changePassword(oldPassword, newPassword);
+  } catch (error) {
+    res.status(400);
+    res.redirect(routes.changePassword);
+  }
+}
