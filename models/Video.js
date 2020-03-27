@@ -24,6 +24,7 @@ const VideoSchema = new mongoose.Schema({
       ref: "Comment"
     }
   ],
+  // 크리에이터의 아이디를 저장할 필요가 있다. video id를 videos array에 넣어야함 something.push
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
