@@ -12,6 +12,7 @@ import routes from "./routes";
 import userRouter from "./routerts/userRouter";
 import videoRouter from "./routerts/videoRouter";
 import globalRouter from "./routerts/globalRouter";
+import apiRouter from "./routerts/apiRouter";
 import "./passport";
 
 const app = express();
@@ -42,5 +43,6 @@ app.use(localsMiddleware);
 app.use(routes.home, globalRouter); // app.use("/", (req, res) => res.render("home");)
 app.use(routes.users, userRouter); // 아 여기 routes.users가 /users 이여서 userRouter부르려면 /users/~~이렇게
 app.use(routes.videos, videoRouter);
+app.use(routes.api, apiRouter);
 
 export default app;
