@@ -100,7 +100,7 @@ export const postEditVideo = async (req, res) => {
 
 // Delete Video
 
-export const deleteVideo = async(req, res) => {
+export const deleteVideo = async (req, res) => {
   const {
     params: { id }
   } = req;
