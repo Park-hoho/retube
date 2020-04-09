@@ -2,7 +2,10 @@ import passport from "passport";
 import GithubStrategy from "passport-github";
 import FacebookStrategy from "passport-facebook";
 import User from "./models/User";
-import {facebookLoginCallback, githubLoginCallback} from "./controllers/userController";
+import {
+  facebookLoginCallback,
+  githubLoginCallback
+} from "./controllers/userController";
 import routes from "./routes";
 // strategy는 로그인 하는 방식
 passport.use(User.createStrategy());
