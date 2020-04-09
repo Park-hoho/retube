@@ -1,5 +1,6 @@
 import routes from "../routes";
 import Video from "../models/Video"; // element를 받는 통로
+import Comment from "../models/Comment";
 
 // Home
 // render 함수의 첫번째 인자는 탬플릿, 두번째 인자는 템플릿에 추가할 정보가 담긴 객체
@@ -59,7 +60,9 @@ export const videoDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id).populate("creator");
+    const video = await Video.findById(id)
+      .populate("creator")
+      .populate("comments");
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     console.log(error);
@@ -128,6 +131,29 @@ export const postRegisterView = async (req, res) => {
     video.views += 1;
     video.save();
     res.status(200);
+  } catch (e) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+// Add Comment
+
+export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id
+    });
+    video.comments.push(newComment.id);
+    video.save();
   } catch (e) {
     res.status(400);
   } finally {

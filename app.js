@@ -17,7 +17,7 @@ import "./passport";
 
 const app = express();
 
-const CokieStore = MongoStore(session);
+const CookieStore = MongoStore(session);
 
 app.use(helmet()); // 보안관련
 app.set("view engine", "pug");
@@ -32,7 +32,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
-    store: new CokieStore({ mongooseConnection: mongoose.connection }) // 쿠키를 DB에 연결
+    store: new CookieStore({ mongooseConnection: mongoose.connection }) // 쿠키를 DB에 연결
   })
 );
 app.use(passport.initialize());
