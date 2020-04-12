@@ -46,15 +46,15 @@
       }
     }
     .video__comments-list {
-      display: flex;
-      flex-direction: column-reverse;
       margin-top: 50px;
       text-align: start;
       li {
+        display: flex;
+        justify-content: space-between;
         background-color: #3498db;
         color: white;
         padding: 15px;
-        border-radius: 20px;
+        border-radius: 20px 20px 20px 0;
         margin-bottom: 15px;
       }
     }
