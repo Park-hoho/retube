@@ -54,3 +54,5 @@ function init() {
 if (addCommentForm) {
   init();
 }
+
+// 실행
