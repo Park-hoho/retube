@@ -4,6 +4,7 @@ import Video from "../../models/Video";
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
+const deleteCommentForm = document.querySelector(".jsDeleteComment");
 
 const increaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
@@ -40,10 +41,18 @@ const handleSubmit = event => {
   commentInput.value = "";
 };
 
+const handleDelete = event => {
+  event.preventDefault();
+  console.log(event);
+};
+
 function init() {
   addCommentForm.addEventListener("submit", handleSubmit);
+  deleteCommentForm.addEventListener("click", handleDelete);
 }
 
 if (addCommentForm) {
   init();
 }
+
+// ㅏㅇㅁ나엄ㄴㅇㄴㅇㅁㄴ
